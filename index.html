@@ -212,7 +212,7 @@ V=W):0),x=(b+=u+=y)*M.cos(A*H++),g+=x+x*E*(a*a*d%2-1),n&&++n>z&&(b+=v,C+=v,n=0),
 ||(b=C,u=G,n=n||1);X=zzfxX,p=X.createBuffer(1,h,R);p.getChannelData(0).set(k);b=X.
 createBufferSource();b.buffer=p;b.connect(X.destination);b.start()};
 
-const VERSION = 'v0.1.05';
+const VERSION = 'v0.1.06';
 
 /* ───── 소리 ───── */
 const SFX = {
@@ -856,7 +856,8 @@ function eyes(o, style) {
     ctx.fillStyle = '#fff'; ctx.strokeStyle = INK; ctx.lineWidth = 1.5;
     ctx.beginPath(); ctx.arc(sx * 7, ey, 4.6, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
     let px, py;
-    if (style === 'dizzy') { const a = T * 7 * sx; px = Math.cos(a) * 1.9; py = Math.sin(a) * 1.9; }
+    // 좌우 눈동자가 서로 반대로 뱅글뱅글
+    if (style === 'dizzy' || style === 'angry') { const a = T * 7 * sx; px = Math.cos(a) * 1.9; py = Math.sin(a) * 1.9; }
     else { px = o.lookX || 0; py = o.lookY || 0; }
     ctx.fillStyle = INK; ctx.beginPath(); ctx.arc(sx * 7 + px, ey + py, 2.1, 0, Math.PI * 2); ctx.fill();
     if (style === 'angry') {   // 안쪽으로 내려간 눈썹
@@ -940,8 +941,6 @@ function drawIPJ(o) {
   ctx.beginPath(); ctx.moveTo(w / 2 - 2, -2); ctx.lineTo(w / 2 - 7, 6); ctx.moveTo(w / 2 - 2, 3); ctx.lineTo(w / 2 - 6, 9); ctx.stroke();
   drawLights(o);
   hyundai(0, -h / 2 + 6.5, 1); hyundai(0, h / 2 - 9.5, .9);
-  const a = Math.atan2(player.y - o.y, player.x - o.x) - o.ang;   // 내 차를 노려봄
-  o.lookX = Math.cos(a) * 1.9; o.lookY = Math.sin(a) * 1.9;
   eyes(o, 'angry');
   ctx.restore();
 }
