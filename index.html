@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
 <meta name="theme-color" content="#3a3c44">
-<meta name="description" content="초보운전 이핑재핑을 피해 최대한 멀리 가자!">
+<meta name="description" content="난폭운전 이핑재핑을 피해 최대한 멀리 가자!">
 <meta property="og:type" content="website">
 <meta property="og:title" content="이핑재핑 피하기">
-<meta property="og:description" content="초보운전 이핑재핑을 피해 최대한 멀리 가자!">
+<meta property="og:description" content="난폭운전 이핑재핑을 피해 최대한 멀리 가자!">
 <meta property="og:url" content="https://bamhobak.github.io/ipingjaeping/">
 <meta property="og:image" content="https://bamhobak.github.io/ipingjaeping/og.png">
 <link rel="manifest" href="manifest.json">
@@ -23,7 +23,7 @@
   --ink: #1d1b22;       /* 굵은 외곽선·글자 */
   --asphalt: #3a3c44;   /* 도로 */
   --pink: #ff5fa2;      /* 이핑재핑 차 */
-  --sticker: #ffd23f;   /* 초보운전 스티커·주요 버튼 */
+  --sticker: #ffd23f;   /* 난폭운전 스티커·주요 버튼 */
   --mint: #3ec7a6;      /* 내 차 */
   --paper: #fffdf6;     /* 사고 경위서 종이 */
   --rule: #c9c4b8;      /* 서식 칸 선 */
@@ -154,7 +154,7 @@ td.quote { font-weight: 400; font-style: italic; }
     </div>
 
     <div id="title" class="ov">
-      <div class="chobo"><b>초보운전</b></div>
+      <div class="chobo"><b>난폭운전</b></div>
       <h1>이핑재핑<span>피하기</span></h1>
       <button class="btn" id="btnStart">출발!</button>
       <div class="rec"><span id="recBest">최고 0점</span></div>
@@ -212,7 +212,7 @@ V=W):0),x=(b+=u+=y)*M.cos(A*H++),g+=x+x*E*(a*a*d%2-1),n&&++n>z&&(b+=v,C+=v,n=0),
 ||(b=C,u=G,n=n||1);X=zzfxX,p=X.createBuffer(1,h,R);p.getChannelData(0).set(k);b=X.
 createBufferSource();b.buffer=p;b.connect(X.destination);b.start()};
 
-const VERSION = 'v0.1.01';
+const VERSION = 'v0.1.04';
 
 /* ───── 소리 ───── */
 const SFX = {
@@ -277,15 +277,29 @@ const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
 
 /* ───── 이핑재핑 운전 습관 ───── */
 const PAT = {
-  zigzag:   { name: '갈지자 주행',          banner: '갈지자 주행 중',        bub: ['랄랄라~ ♪', '차선이 몇 개더라?'],         says: ['노래 듣다가 흥이 나서요', '차선이 좀 흐릿했어요', '저는 똑바로 갔는데요?'] },
-  brake:    { name: '이유 없는 급정거',     banner: '앞차 급정거 주의',      bub: ['어? 고양이?!', '앗 여기였나?'],           says: ['고양이인 줄 알았어요', '아 여기서 내려야 됐는데!', '브레이크 잘 되나 본 거예요'] },
-  wrongway: { name: '역주행',               banner: '역주행 차량 접근',      bub: ['여기 일방통행 아니었어?', '다들 왜 거꾸로 와?'], says: ['내비가 이쪽이라던데요?', '일방통행이 뭐예요?'] },
-  signal:   { name: '깜빡이 반대로 끼어들기', banner: '깜빡이 믿지 마세요',  bub: ['깜빡이 켰다~', '어 이쪽 아니었나?'],      says: ['깜빡이 켰잖아요!', '왼쪽이 이쪽 아니에요?'] },
-  charge:   { name: '뒤에서 돌진',          banner: '뒤에서 돌진 중',        bub: ['급해 급해!!', '브레이크가 어느 쪽이더라?'], says: ['엑셀이 브레이크인 줄 알았어요', '화장실이 급해서요'] },
-  spin:     { name: '빙글빙글 드리프트',    banner: '통제 불능',             bub: ['핸들이 왜 이래~', '으아아아'],             says: ['핸들이 혼자 돌았어요', '드리프트 연습 중이었어요'] },
-  parking:  { name: '도로 한복판 주차',     banner: '도로 위 주차',          bub: ['주차 완벽!', '잠깐 편의점만~'],            says: ['주차 완벽한데요?', '여기 주차장 아니에요?'] },
+  zigzag:   { name: '차선 넘나들며 칼질',   banner: '갈지자 주행 중',        bub: ['비켜 비켜~', '차선은 참고용이지'],          says: ['다들 너무 느려서요', '흐름 타고 있었는데요?', '제 차선은 제가 고르는 거죠'] },
+  brake:    { name: '보복 급정거',          banner: '보복 급정거 주의',      bub: ['어디서 따라붙어!', '한번 혼나 볼래?'],      says: ['뒤에서 바짝 붙길래요', '교육 차원이었어요', '브레이크 잘 되나 본 거예요'] },
+  wrongway: { name: '역주행',               banner: '역주행 차량 접근',      bub: ['이쪽이 지름길이야!', '비켜! 바빠!'],        says: ['돌아가면 늦잖아요', '반대편이 더 한가했어요'] },
+  signal:   { name: '깜빡이 반대로 끼어들기', banner: '깜빡이 믿지 마세요',  bub: ['깜빡이? 대충 켰어', '어차피 내가 먼저야'],   says: ['깜빡이 켰으면 된 거 아니에요?', '그쪽이 알아서 피했어야죠'] },
+  charge:   { name: '뒤에서 들이밀기',      banner: '뒤에서 돌진 중',        bub: ['안 비키면 민다!', '풀악셀 간다~'],          says: ['길을 막고 있길래요', '저 원래 이 속도로 다녀요'] },
+  spin:     { name: '도로 위 드리프트',     banner: '드리프트 중',           bub: ['드리프트 보여 줄게!', '이게 바로 실력이지'], says: ['드리프트 연습 중이었어요', '타이어 좀 데우느라요'] },
+  parking:  { name: '도로 한복판 주차',     banner: '도로 위 주차',          bub: ['잠깐이면 돼!', '비상등 켰잖아~'],           says: ['비상등 켰잖아요', '5분이면 된다니까요'] },
+  reverse:  { name: '후진으로 역주행',      banner: '후진 차량 접근',        bub: ['지나쳤네, 후진!', '뒤는 안 봐도 돼~'],      says: ['출구 지나쳐서 후진했어요', '뒤에 차가 있는 줄 몰랐죠'] },
+  phone:    { name: '폰 보면서 운전',       banner: '휴대폰 보며 운전 중',   bub: ['게임 한 판만~', '헉!'],                     says: ['답장만 하려고 했어요', '한 손으로도 충분해요'] },
+  lanehog:  { name: '차선 두 개 물고 가기', banner: '차선 물고 가는 중',     bub: ['두 차선 다 내 거야', '비키든가~'],          says: ['넓게 타야 안전해요', '선 밟으면 안 돼요?'] },
+  cutin:    { name: '칼치기',               banner: '칼치기 주의',           bub: ['칼치기 간다!', '왜 안 비켜!'],              says: ['자리가 있어 보였어요', '깜빡이는 마음으로 켰어요'] },
+  exit:     { name: '출구 직전 가로지르기', banner: '4차선 가로지르기',      bub: ['출구 저쪽이다!', '비켜 비켜~'],             says: ['내비가 늦게 말해 줬어요', '출구가 갑자기 나왔어요'] },
+  uturn:    { name: '도로 한가운데 유턴',   banner: '불법 유턴 주의',        bub: ['여기서 유턴하면 빠르지', '왔던 길로 간다~'], says: ['유턴 금지는 권고 사항이잖아요', '집에 뭘 두고 와서요'] },
+  tailgate: { name: '바짝 붙어 빵빵',       banner: '뒤에 바짝 붙음',        bub: ['빨리 좀 가요!', '빵빵!'],                   says: ['제가 좀 바빠서요', '앞차가 너무 느렸어요'] },
 };
-const PLACES = ['핑재사거리', '이핑대교 북단', '재핑터널 입구', '초보운전 교차로', '깜빡이로 7길', '빵빵동 주민센터 앞', '급정거 삼거리'];
+// 시간이 지나면 풀리는 습관(초) — 첫 이핑재핑도 0초 묶음에서 무작위
+const TIERS = [
+  [0,  ['zigzag', 'brake', 'wrongway', 'reverse', 'phone', 'lanehog']],
+  [12, ['signal', 'charge', 'cutin', 'exit']],
+  [25, ['spin', 'parking', 'uturn', 'tailgate']],
+];
+const FAST = new Set(['wrongway', 'charge', 'reverse', 'uturn', 'tailgate', 'cutin']);
+const PLACES = ['핑재사거리', '이핑대교 북단', '재핑터널 입구', '난폭운전 교차로', '깜빡이로 7길', '빵빵동 주민센터 앞', '급정거 삼거리'];
 const ROAD_TEXT = [['천천히'], ['서행'], ['양보'], ['주의', '이핑재핑'], ['정지']];
 
 /* ───── 상태 ───── */
@@ -312,7 +326,7 @@ function spawnTraffic() {
   const r = Math.random();
   const type = r < .55 ? 'sedan' : r < .7 ? 'taxi' : r < .88 ? 'truck' : 'bus';
   const [w, h] = { sedan: [34, 58], taxi: [34, 58], truck: [40, 84], bus: [42, 108] }[type];
-  const color = type === 'sedan' ? pick(['#f2f0ea', '#5b6b8c', '#c9473f', '#2f2f36', '#9aa5ad', '#e9c46a'])
+  const color = type === 'sedan' ? pick(['#4a7c59', '#5b6b8c', '#c9473f', '#2f2f36', '#9aa5ad', '#e9c46a'])
     : type === 'taxi' ? '#f4a62a' : type === 'truck' ? '#3d7dd8' : '#2fa86a';
   S.traffic.push({ type, lane, x: laneX(lane) + rand(-4, 4), y: -h / 2 - 10, w, h, hit: .86, ang: 0, vx: 0, va: 0,
     frac: type === 'sedan' || type === 'taxi' ? rand(.5, .75) : rand(.45, .6), color, wreck: false, smokeT: 0 });
@@ -323,7 +337,7 @@ function say(o, i) { const b = PAT[o.pat].bub; o.bubble = b[i ?? (Math.random() 
 
 function spawnIPJ(pat) {
   const d = diff();
-  const o = { ipj: true, pat, color: '#ff5fa2', t: 0, delay: 0, x: W / 2, y: -80, w: 36, h: 62, hit: .84, ang: 0, vx: 0, vy: 0,
+  const o = { ipj: true, pat, color: '#f6f6f3', avante: true, t: 0, delay: 0, x: W / 2, y: -80, w: 36, h: 62, hit: .84, ang: 0, vx: 0, vy: 0,
     sig: 0, brake: false, hazard: false, phase: 0, pt: 0, bubble: null, bubbleT: 0, nearIn: false, nearCool: 0, ownAng: false };
   const pl = laneOf(player.x);
   switch (pat) {
@@ -359,22 +373,46 @@ function spawnIPJ(pat) {
     case 'parking':
       o.x = laneX(pick([0, 1, 2, 3])); o.vy = 110; o.trigY = H * rand(.06, .14); o.ownAng = true;
       break;
+    case 'reverse':
+      o.x0 = o.x = laneX(pl); o.y = -90; o.ownAng = true; o.rev = true; o.extra = 70 + 90 * d;
+      o.delay = .8; addWarn('top', o.x, .8, '후진!');
+      break;
+    case 'phone':
+      o.x = laneX(clamp(pl + pick([-1, 0, 1]), 0, 3)); o.vy = 95 + 45 * d; o.jerkT = rand(1.4, 2.2);
+      o.dir = player.x > o.x + 10 ? 1 : player.x < o.x - 10 ? -1 : pick([-1, 1]); say(o, 0);
+      break;
+    case 'lanehog':
+      o.x0 = o.x = ROAD_L + LANE_W * clamp(Math.round((player.x - ROAD_L) / LANE_W), 1, 3); o.vy = 75 + 40 * d; say(o, 0);
+      break;
+    case 'cutin':
+      o.x = laneX(pick([pl - 1, pl + 1].filter(l => l >= 0 && l <= 3))); o.y = H + 90;
+      o.delay = .75; addWarn('bottom', o.x, .75, '칼치기!');
+      break;
+    case 'exit': {
+      const left = Math.random() < .5;
+      o.x = laneX(left ? 0 : 3); o.dir = left ? 1 : -1; o.vy = 110; o.trigY = H * rand(.1, .2);
+      break;
+    }
+    case 'uturn': {
+      const L = pick([0, 1, 2, 3]);
+      o.x = laneX(L); o.dir = L < 2 ? 1 : -1; o.vy = 100; o.trigY = H * rand(.08, .15); o.ownAng = true;
+      break;
+    }
+    case 'tailgate':
+      o.x = player.x; o.y = H + 90; o.delay = .8; addWarn('bottom', o.x, .8, '빵빵!');
+      break;
   }
   S.ipjs.push(o);
   S.lastPat = pat; S.first = false;
   if (S.mode === 'play') {
     S.banner = { text: PAT[pat].banner, t: 0 };
-    if (pat === 'wrongway' || pat === 'charge' || pat === 'zigzag') setTimeout(honk, o.delay * 1000);
+    if (['wrongway', 'charge', 'zigzag', 'reverse', 'cutin'].includes(pat)) setTimeout(honk, o.delay * 1000);
   }
 }
 function choosePat() {
   if (S.mode === 'title') return pick(['zigzag', 'spin']);
-  if (S.first) return 'zigzag';
-  let pool = ['zigzag', 'brake', 'wrongway'];
-  if (S.t > 12) pool.push('signal', 'charge');
-  if (S.t > 25) pool.push('spin', 'parking');
-  pool = pool.filter(p => p !== S.lastPat);
-  if (S.ipjs.some(o => o.delay > 0 || o.pat === 'wrongway' || o.pat === 'charge')) pool = pool.filter(p => p !== 'wrongway' && p !== 'charge');
+  let pool = TIERS.filter(([t]) => S.t >= t).flatMap(([, p]) => p).filter(p => p !== S.lastPat);
+  if (S.ipjs.some(o => o.delay > 0 || FAST.has(o.pat))) pool = pool.filter(p => !FAST.has(p));
   return pick(pool);
 }
 
@@ -420,7 +458,7 @@ function wreckCar(c, o) {
   burst((c.x + o.x) / 2, (c.y + o.y) / 2, [c.color, '#ddd', '#222'], 9, .7);
   floatText('쾅!', c.x, c.y - 20, '#ffd23f', 20);
   sfx('bump', S.mode === 'play' ? 1 : .4);
-  if (!o.bubble || o.bubbleT < .6) { o.bubble = pick(['어머 죄송해요~', '제 잘못 아니에요!', '어? 뭐 박았나?']); o.bubbleT = 1.6; }
+  if (!o.bubble || o.bubbleT < .6) { o.bubble = pick(['제 잘못 아니에요!', '왜 거기 서 있어!', '어? 뭐 박았나?']); o.bubbleT = 1.6; }
 }
 
 function crash(other, cause) {
@@ -432,7 +470,7 @@ function crash(other, cause) {
   player.va = (player.x < other.x ? -1 : 1) * 5;
   other.va = -player.va * .7; other.crashed = true;
   if (!other.ipj) other.wreck = true;
-  else { other.bubble = pick(['어머 어떡해!!', '저 깜빡이 켰어요!', '보험 부를게요~']); other.bubbleT = 3; }
+  else { other.bubble = pick(['그러게 왜 거기 있어!', '내 차 흠집 났잖아!', '보험 부르면 되지~']); other.bubbleT = 3; }
   sfx('crash');
   crashes++; store.set('crashes', crashes);
 }
@@ -619,6 +657,69 @@ function updIPJ(o, dt, v, d) {
         if (p >= 1) { o.phase = 2; o.hazard = true; o.sig = 0; say(o); }
       } else { o.vy = v; o.y += o.vy * dt; }
       break;
+    case 'reverse':
+      if (o.t < dt * 1.5) say(o);
+      o.vy = v + o.extra; o.y += o.vy * dt;
+      o.x = o.x0 + 24 * Math.sin(o.t * 2.4); o.ang = -.22 * Math.cos(o.t * 2.4);
+      break;
+    case 'phone':
+      o.y += o.vy * dt;
+      if (o.phase === 0) { o.vx = o.dir * 38; if (o.t > o.jerkT) { o.phase = 1; o.pt = 0; say(o, 1); sfx('screech', .6); } }
+      else if (o.phase === 1) { o.pt += dt; o.vx = -o.dir * 280; skid(o); if (o.pt > .32) o.phase = 2; }
+      else o.vx *= 1 - Math.min(1, dt * 5);
+      o.x = clamp(o.x + o.vx * dt, ROAD_L + 22, ROAD_R - 22);
+      break;
+    case 'lanehog':
+      o.y += o.vy * dt; o.x = o.x0 + 9 * Math.sin(o.t * 1.7); o.vx = 15 * Math.cos(o.t * 1.7);
+      if (o.t > 2.2 && !o.bubble && Math.random() < dt) say(o, 1);
+      break;
+    case 'cutin':
+      if (o.phase === 0) {
+        o.vy = -(v * .5 + 210); o.y += o.vy * dt;
+        if (o.y < player.y - 115) { o.phase = 1; o.tgt = laneX(laneOf(player.x)); say(o, 0); }
+      } else if (o.phase === 1) {
+        o.vy += (-60 - o.vy) * Math.min(1, dt * 5); o.vx = clamp((o.tgt - o.x) * 5, -230, 230);
+        o.x += o.vx * dt; o.y += o.vy * dt;
+        if (Math.abs(o.tgt - o.x) < 4) { o.phase = 2; o.pt = 0; o.brake = true; say(o, 1); sfx('screech', .7); }
+      } else {
+        o.pt += dt; o.vx = 0;
+        if (o.pt < .55) { o.vy += (150 + 60 * d - o.vy) * Math.min(1, dt * 6); skid(o); }
+        else { o.brake = false; o.vy += (-(v * .6 + 200) - o.vy) * Math.min(1, dt * 3); }
+        o.y += o.vy * dt;
+      }
+      break;
+    case 'exit':
+      if (o.phase === 0) { o.y += o.vy * dt; if (o.y > o.trigY) { o.phase = 1; o.sig = o.dir; say(o, 0); } }
+      else if (o.phase === 1) {
+        o.vy = 150 + 60 * d; o.vx = o.dir * (230 + 80 * d);
+        o.x += o.vx * dt; o.y += o.vy * dt;
+        if (o.dir > 0 ? o.x >= laneX(3) : o.x <= laneX(0)) { o.x = laneX(o.dir > 0 ? 3 : 0); o.phase = 2; o.sig = 0; }
+      } else { o.vx = 0; o.y += o.vy * dt; }
+      break;
+    case 'uturn':
+      if (o.phase === 0) { o.y += o.vy * dt; if (o.y > o.trigY) { o.phase = 1; o.pt = 0; o.sx = o.x; o.vy0 = o.vy; o.sig = o.dir; say(o, 0); } }
+      else if (o.phase === 1) {
+        o.pt += dt; const p = Math.min(1, o.pt / 1.1), e = p * p * (3 - 2 * p);
+        o.ang = o.dir * e * Math.PI; o.x = o.sx + o.dir * LANE_W * (1 - Math.cos(e * Math.PI));
+        o.vy = o.vy0 + (v + 140 + 100 * d - o.vy0) * e; o.y += o.vy * dt; skid(o);
+        if (p >= 1) { o.phase = 2; o.sig = 0; }
+      } else { o.vy = v + 140 + 100 * d; o.y += o.vy * dt; }
+      break;
+    case 'tailgate':
+      if (o.phase === 0) {
+        o.vy = -(260 + 80 * d); o.y += o.vy * dt; o.x += (player.x - o.x) * Math.min(1, dt * 2.5);
+        if (o.y < player.y + 85) { o.phase = 1; o.pt = 0; o.hT = 0; o.flash = true; say(o, 0); }
+      } else if (o.phase === 1) {
+        o.pt += dt;
+        const ny = o.y + (player.y + 78 - o.y) * Math.min(1, dt * 3), nx = o.x + (player.x - o.x) * Math.min(1, dt * 2.2);
+        o.vy = (ny - o.y) / Math.max(dt, 1e-3); o.vx = (nx - o.x) / Math.max(dt, 1e-3); o.y = ny; o.x = nx;
+        if ((o.hT -= dt) < 0) { o.hT = .9; honk(); if (!o.bubble) say(o, 1); }
+        if (o.pt > 2.8) { o.phase = 2; o.flash = false; o.tgt = clamp(player.x + (player.x < W / 2 ? 64 : -64), ROAD_L + 22, ROAD_R - 22); }
+      } else {
+        o.vy += (-(v * .5 + 260) - o.vy) * Math.min(1, dt * 3); o.vx = clamp((o.tgt - o.x) * 5, -220, 220);
+        o.x += o.vx * dt; o.y += o.vy * dt;
+      }
+      break;
   }
   if (!o.ownAng) o.ang += (Math.atan2(o.vx || 0, Math.max(80, v - o.vy)) - o.ang) * Math.min(1, dt * 10);
 }
@@ -706,12 +807,28 @@ function drawSedan(o, extra) {
 }
 function drawLights(o) {
   const { w, h } = o;
-  ctx.fillStyle = '#fff4c2';
-  rr(-w / 2 + 4, -h / 2 + 1.5, 8, 4, 2); ctx.fill(); rr(w / 2 - 12, -h / 2 + 1.5, 8, 4, 2); ctx.fill();
+  if (o.avante) {   // 날렵한 LED 헤드램프
+    ctx.fillStyle = '#e6f3ff'; ctx.strokeStyle = INK; ctx.lineWidth = 1;
+    for (const sx of [-1, 1]) {
+      ctx.beginPath(); ctx.moveTo(sx * (w / 2 - 2), -h / 2 + 8); ctx.lineTo(sx * (w / 2 - 13), -h / 2 + 2.5);
+      ctx.lineTo(sx * (w / 2 - 13), -h / 2 + 5.5); ctx.lineTo(sx * (w / 2 - 3), -h / 2 + 11); ctx.closePath(); ctx.fill(); ctx.stroke();
+    }
+  } else {
+    ctx.fillStyle = '#fff4c2';
+    rr(-w / 2 + 4, -h / 2 + 1.5, 8, 4, 2); ctx.fill(); rr(w / 2 - 12, -h / 2 + 1.5, 8, 4, 2); ctx.fill();
+  }
+  if (o.flash && (T * 7 | 0) % 2 === 0) {   // 상향등 번쩍
+    ctx.fillStyle = 'rgba(255,244,190,.55)';
+    for (const sx of [-1, 1]) { ctx.beginPath(); ctx.arc(sx * (w / 2 - 8), -h / 2 + 3, 15, 0, Math.PI * 2); ctx.fill(); }
+  }
   const br = o.brake;
-  if (br) { ctx.fillStyle = 'rgba(255,40,40,.35)'; for (const sx of [-1, 1]) { ctx.beginPath(); ctx.arc(sx * (w / 2 - 7), h / 2 - 3, 13, 0, Math.PI * 2); ctx.fill(); } }
-  ctx.fillStyle = br ? '#ff3030' : '#a8202a';
-  rr(-w / 2 + 3, h / 2 - 5.5, 9, 4, 2); ctx.fill(); rr(w / 2 - 12, h / 2 - 5.5, 9, 4, 2); ctx.fill();
+  if (br || o.rev) {
+    ctx.fillStyle = o.rev ? 'rgba(255,255,255,.4)' : 'rgba(255,40,40,.35)';
+    for (const sx of [-1, 1]) { ctx.beginPath(); ctx.arc(sx * (w / 2 - 7), h / 2 - 3, 13, 0, Math.PI * 2); ctx.fill(); }
+  }
+  ctx.fillStyle = o.rev ? '#ffffff' : br ? '#ff3030' : '#a8202a';
+  if (o.avante) { rr(-w / 2 + 3, h / 2 - 5.5, w - 6, 3.2, 1.6); ctx.fill(); }   // 일자 테일램프
+  else { rr(-w / 2 + 3, h / 2 - 5.5, 9, 4, 2); ctx.fill(); rr(w / 2 - 12, h / 2 - 5.5, 9, 4, 2); ctx.fill(); }
   const blink = (T * 3.2 | 0) % 2 === 0;
   if (blink && (o.sig || o.hazard || o.wreck)) {
     ctx.fillStyle = '#ffb000';
@@ -724,15 +841,20 @@ function drawLights(o) {
     }
   }
 }
-function eyes(o, dizzy) {
+function eyes(o, style) {
   const ey = -o.h / 2 + 18;
   for (const sx of [-1, 1]) {
     ctx.fillStyle = '#fff'; ctx.strokeStyle = INK; ctx.lineWidth = 1.5;
     ctx.beginPath(); ctx.arc(sx * 7, ey, 4.6, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
     let px, py;
-    if (dizzy) { const a = T * 7 * sx; px = Math.cos(a) * 1.9; py = Math.sin(a) * 1.9; }
+    if (style === 'dizzy') { const a = T * 7 * sx; px = Math.cos(a) * 1.9; py = Math.sin(a) * 1.9; }
     else { px = o.lookX || 0; py = o.lookY || 0; }
     ctx.fillStyle = INK; ctx.beginPath(); ctx.arc(sx * 7 + px, ey + py, 2.1, 0, Math.PI * 2); ctx.fill();
+    if (style === 'angry') {   // 안쪽으로 내려간 눈썹
+      ctx.lineWidth = 2.6; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.moveTo(sx * 12.5, ey - 8); ctx.lineTo(sx * 2.5, ey - 3.8); ctx.stroke();
+      ctx.lineCap = 'butt';
+    }
   }
 }
 function drawCar(o) {
@@ -766,23 +888,52 @@ function drawCar(o) {
   }
   ctx.restore();
 }
+function hyundai(x, y, k) {   // 현대 엠블럼: 은색 타원 + 기울어진 H
+  ctx.save(); ctx.translate(x, y); ctx.scale(k, k);
+  ctx.fillStyle = '#2a3140'; ctx.beginPath(); ctx.ellipse(0, 0, 5.4, 3.6, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.strokeStyle = '#d7dbe2'; ctx.lineWidth = 1; ctx.beginPath(); ctx.ellipse(0, 0, 4.6, 2.9, 0, 0, Math.PI * 2); ctx.stroke();
+  ctx.lineWidth = .9; ctx.beginPath();
+  ctx.moveTo(-1.7, -2.2); ctx.lineTo(-2.5, 2.2);
+  ctx.moveTo(2.5, -2.2); ctx.lineTo(1.7, 2.2);
+  ctx.moveTo(-2.3, .9); ctx.lineTo(2.3, -.9);
+  ctx.stroke();
+  ctx.restore();
+}
 function drawIPJ(o) {
   ctx.save(); ctx.translate(o.x, o.y); ctx.rotate(o.ang);
-  const wob = o.crashed ? 0 : Math.sin(T * 9) * .6;
-  ctx.translate(wob, 0);
-  drawSedan(o, ry => {
-    // 초보운전 스티커
-    ctx.fillStyle = '#ffd23f'; ctx.strokeStyle = INK; ctx.lineWidth = 1.5;
-    rr(-o.w / 2 + 6, ry + 11, o.w - 12, 10, 2); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = INK; ctx.font = '8px Jua, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillText('초보', 0, ry + 16.5);
-    // 범퍼 반창고
-    ctx.save(); ctx.translate(o.w / 2 - 9, -o.h / 2 + 7); ctx.rotate(.5);
-    ctx.fillStyle = '#f2c9a0'; rr(-6, -2.5, 12, 5, 2); ctx.fill(); ctx.lineWidth = 1; ctx.stroke();
-    ctx.fillStyle = 'rgba(0,0,0,.25)'; ctx.fillRect(-1.5, -1.5, 3, 3);
-    ctx.restore();
-  });
-  eyes(o, true);
+  if (!o.crashed) ctx.translate(Math.sin(T * 24) * .5, 0);   // 공회전 떨림
+  // 하얀 아반떼: 쐐기형 차체·Z자 옆 주름·선루프·긴 패스트백 유리·일자 테일램프
+  const { w, h } = o, body = o.color;
+  ctx.fillStyle = 'rgba(0,0,0,.28)'; rr(-w / 2 + 3, -h / 2 + 5, w, h, 11); ctx.fill();
+  ctx.fillStyle = '#16151a';
+  for (const sx of [-1, 1]) for (const sy of [-1, 1]) { rr(sx * w / 2 - 3.5, sy * (h / 2 - 15) - 7, 7, 14, 2); ctx.fill(); }
+  ctx.fillStyle = body; ctx.strokeStyle = INK; ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  ctx.moveTo(-w / 2 + 6, -h / 2); ctx.lineTo(w / 2 - 6, -h / 2); ctx.quadraticCurveTo(w / 2, -h / 2 + 1, w / 2, -h / 2 + 11);
+  ctx.lineTo(w / 2, h / 2 - 8); ctx.quadraticCurveTo(w / 2, h / 2, w / 2 - 7, h / 2);
+  ctx.lineTo(-w / 2 + 7, h / 2); ctx.quadraticCurveTo(-w / 2, h / 2, -w / 2, h / 2 - 8);
+  ctx.lineTo(-w / 2, -h / 2 + 11); ctx.quadraticCurveTo(-w / 2, -h / 2 + 1, -w / 2 + 6, -h / 2);
+  ctx.closePath(); ctx.fill(); ctx.stroke();
+  ctx.strokeStyle = 'rgba(0,0,0,.17)'; ctx.lineWidth = 1.2;
+  for (const sx of [-1, 1]) { ctx.beginPath(); ctx.moveTo(sx * (w / 2 - 3), -h / 2 + 14); ctx.lineTo(sx * (w / 2 - 6.5), 3); ctx.lineTo(sx * (w / 2 - 3), h / 2 - 12); ctx.stroke(); }
+  ctx.beginPath(); ctx.moveTo(-8, -h / 2 + 3); ctx.lineTo(-10, -h / 2 + 11); ctx.moveTo(8, -h / 2 + 3); ctx.lineTo(10, -h / 2 + 11); ctx.stroke();
+  ctx.strokeStyle = INK; ctx.lineWidth = 2;
+  ctx.fillStyle = GLASS;
+  ctx.beginPath(); ctx.moveTo(-w / 2 + 7, -h / 2 + 12); ctx.lineTo(w / 2 - 7, -h / 2 + 12); ctx.lineTo(w / 2 - 4, -h / 2 + 25); ctx.lineTo(-w / 2 + 4, -h / 2 + 25); ctx.closePath(); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = '#e8e8e3'; rr(-w / 2 + 5, -h / 2 + 25, w - 10, 17, 5); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = GLASS; rr(-6, -h / 2 + 28, 12, 8, 2); ctx.fill();
+  const ry = -h / 2 + 42;
+  ctx.beginPath(); ctx.moveTo(-w / 2 + 5, ry); ctx.lineTo(w / 2 - 5, ry); ctx.lineTo(w / 2 - 8, ry + 11); ctx.lineTo(-w / 2 + 8, ry + 11); ctx.closePath(); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = body; ctx.lineWidth = 1.5;
+  for (const sx of [-1, 1]) { rr(sx > 0 ? w / 2 - 1 : -w / 2 - 3, -h / 2 + 22, 4, 5, 1.5); ctx.fill(); ctx.stroke(); }
+  // 문짝 긁힌 자국
+  ctx.strokeStyle = 'rgba(60,60,70,.55)'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(w / 2 - 2, -2); ctx.lineTo(w / 2 - 7, 6); ctx.moveTo(w / 2 - 2, 3); ctx.lineTo(w / 2 - 6, 9); ctx.stroke();
+  drawLights(o);
+  hyundai(0, -h / 2 + 6.5, 1); hyundai(0, h / 2 - 9.5, .9);
+  const a = Math.atan2(player.y - o.y, player.x - o.x) - o.ang;   // 내 차를 노려봄
+  o.lookX = Math.cos(a) * 1.9; o.lookY = Math.sin(a) * 1.9;
+  eyes(o, 'angry');
   ctx.restore();
 }
 function drawPlayer() {
@@ -798,7 +949,7 @@ function drawPlayer() {
     ctx.fillStyle = INK; ctx.font = '10px Jua, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     ctx.fillText('나', 0, ry + 16);
   });
-  eyes(player, S.mode === 'crash');
+  eyes(player, S.mode === 'crash' ? 'dizzy' : '');
   ctx.restore();
 }
 
@@ -941,7 +1092,7 @@ function showReport() {
   $('rPlace').textContent = pick(PLACES);
   let car, type, says, fa, fb, stamp;
   if (c.type === 'ipj') {
-    car = '분홍 경차 · 이핑재핑 (초보운전 3년째)'; type = PAT[c.pat].name; says = `“${pick(PAT[c.pat].says)}”`;
+    car = '하얀 아반떼 · 이핑재핑 (난폭운전 상습)'; type = PAT[c.pat].name; says = `“${pick(PAT[c.pat].says)}”`;
     fa = 100; fb = 0; stamp = '이핑<br>재핑';
   } else if (c.type === 'wreck') {
     car = '이핑재핑한테 먼저 박힌 차'; type = '이핑재핑이 낸 사고 현장에 추돌'; says = '“저는 이미 한 번 박혀서 서 있었어요 ㅠㅠ”';
