@@ -36,7 +36,7 @@
   color-scheme: light;
 }
 [hidden] { display: none !important; }
-html, body { height: 100%; margin: 0; overflow: hidden; background: #6fb35f; color: var(--ink); }
+html, body { height: 100%; margin: 0; overflow: hidden; touch-action: manipulation; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; background: #6fb35f; color: var(--ink); }
 body { font-family: var(--f-body); word-break: keep-all; overflow-wrap: anywhere; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; }
 #stage {
   position: fixed; inset: 0; display: grid; place-items: center;
@@ -198,7 +198,7 @@ td.quote { font-weight: 400; font-style: italic; }
 
 <script>
 // ZzFXMicro - Zuper Zmall Zound Zynth - v1.4.0 by Frank Force (MIT)
-let zzfxV=.3,zzfxX=new AudioContext,
+let zzfxV=.3,zzfxX=(()=>{try{return new(window.AudioContext||window.webkitAudioContext)}catch(e){return null}})(),
 zzfx=(p=1,k=.05,b=220,e=0,r=0,t=.1,q=0,D=1,u=0,y=0,v=0,z=0,l=0,E=0,A=0,F=0,c=0,w=1,m=0,B=0
 ,N=0)=>{let M=Math,d=2*M.PI,R=44100,G=u*=500*d/R/R,C=b*=(1-k+2*k*M.random(k=[]))*d/R,
 g=0,H=0,a=0,n=1,I=0,J=0,f=0,h=N<0?-1:1,x=d*h*N*2/R,L=M.cos(x),Z=M.sin,K=Z(x)/4,O=1+K,
@@ -212,7 +212,7 @@ V=W):0),x=(b+=u+=y)*M.cos(A*H++),g+=x+x*E*(a*a*d%2-1),n&&++n>z&&(b+=v,C+=v,n=0),
 ||(b=C,u=G,n=n||1);X=zzfxX,p=X.createBuffer(1,h,R);p.getChannelData(0).set(k);b=X.
 createBufferSource();b.buffer=p;b.connect(X.destination);b.start()};
 
-const VERSION = 'v0.1.04';
+const VERSION = 'v0.1.05';
 
 /* ───── 소리 ───── */
 const SFX = {
@@ -238,7 +238,7 @@ function sfx(name, vol = 1) {
   try { zzfx(...p); } catch (e) {}
 }
 function honk() { sfx('hornA'); sfx('hornB'); setTimeout(() => { sfx('hornA'); sfx('hornB'); }, 170); }
-addEventListener('pointerdown', () => zzfxX.state !== 'running' && zzfxX.resume(), { passive: true });
+for (const ev of ['pointerdown', 'touchend']) addEventListener(ev, () => zzfxX && zzfxX.state !== 'running' && zzfxX.resume(), { passive: true });
 
 /* ───── 저장(실패해도 게임은 돈다) ───── */
 const store = {
@@ -255,11 +255,15 @@ const laneX = i => ROAD_L + LANE_W * (i + .5);
 const laneOf = x => Math.max(0, Math.min(3, Math.floor((x - ROAD_L) / LANE_W)));
 const $ = id => document.getElementById(id);
 const cv = $('cv'), ctx = cv.getContext('2d'), wrap = $('wrap'), stage = $('stage');
-let scale = 1, dpr = 1;
+let scale = 1, dpr = 1, lastSW = 0, lastSH = 0;
 function resize() {
   const cs = getComputedStyle(stage);
-  const aw = stage.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
-  const ah = stage.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+  lastSW = stage.clientWidth; lastSH = stage.clientHeight;
+  // 카톡 인앱 브라우저는 처음에 화면 크기를 틀리게 줄 때가 있어 창 크기와 둘 중 작은 쪽을 쓴다
+  const sw = Math.min(lastSW, window.innerWidth || lastSW), sh = Math.min(lastSH, window.innerHeight || lastSH);
+  const aw = sw - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+  const ah = sh - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+  if (aw < 50 || ah < 50) return;
   scale = Math.min(aw / W, ah / 560);
   H = Math.round(Math.min(800, Math.max(560, ah / scale)));
   dpr = Math.min(3, window.devicePixelRatio || 1);
@@ -269,6 +273,11 @@ function resize() {
   cv.width = Math.round(W * scale * dpr); cv.height = Math.round(H * scale * dpr);
 }
 addEventListener('resize', resize);
+addEventListener('orientationchange', () => setTimeout(resize, 200));
+addEventListener('load', resize);
+if (window.visualViewport) visualViewport.addEventListener('resize', resize);
+// 아이폰 확대(두 번 톡·핀치) 막기 — user-scalable=no 를 무시한다
+for (const ev of ['gesturestart', 'gesturechange', 'dblclick']) document.addEventListener(ev, e => e.preventDefault(), { passive: false });
 resize();
 
 const rand = (a, b) => a + Math.random() * (b - a);
@@ -1134,6 +1143,7 @@ goTitle();
 let last = performance.now();
 function frame(now) {
   const dt = Math.min(.05, (now - last) / 1000); last = now; T = now / 1000;
+  if (stage.clientWidth !== lastSW || stage.clientHeight !== lastSH) resize();   // 크기 바뀜 신호를 못 받아도 따라감
   update(dt); draw();
   requestAnimationFrame(frame);
 }
